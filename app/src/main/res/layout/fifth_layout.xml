@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_02"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="291dp"
+        android:src="@drawable/seventy_four" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What do you see?"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:fontFamily="@font/rowdies"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/ssbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SS"
+            android:textSize="20sp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/rowdies"
+            />
+
+        <Button
+            android:id="@+id/seventyfourbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="74"
+            android:textSize="20sp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/rowdies"
+            />
+
+        <Button
+            android:id="@+id/ninetyfourbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="94"
+            android:backgroundTint="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/rowdies"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:weightSum="30"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/passTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rowdies"
+            android:textSize="20sp"
+            android:layout_weight="10"
+            />
+
+        <TextView
+            android:id="@+id/failTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rowdies"
+            android:textSize="20sp"
+            android:layout_weight="10"
+            />
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:backgroundTint="@color/black"
+            android:layout_weight="10"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
