@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://color-vision-lab.vercel.app/sitemap.xml
