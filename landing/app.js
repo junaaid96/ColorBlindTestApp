@@ -10,11 +10,11 @@ const mb=$('#menubtn'),menu=$('#menu');
 mb.addEventListener('click',()=>{const o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});
 menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
 /* OS detection */
-const R='https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/';
-const OS={windows:['Download for Windows','Installer .exe · 2.4 MB',R+'Color.Vision.Lab_3.0.0_x64-setup.exe'],
-mac:['Download for macOS','Universal .dmg · Apple silicon + Intel · 6 MB',R+'Color.Vision.Lab_3.0.0_universal.dmg'],
-linux:['Download for Linux','AppImage · also .deb and .rpm',R+'Color.Vision.Lab_3.0.0_amd64.AppImage'],
-android:['Download for Android','Installable APK (debug-signed) · 594 MB',R+'Color-Vision-Lab_3.0.0_universal-debug.apk'],
+const R='https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.1/';
+const OS={windows:['Download for Windows','Installer .exe · 2.4 MB',R+'Color.Vision.Lab_3.0.1_x64-setup.exe'],
+mac:['Download for macOS','Universal .dmg · Apple silicon + Intel · 6 MB',R+'Color.Vision.Lab_3.0.1_universal.dmg'],
+linux:['Download for Linux','AppImage · also .deb and .rpm',R+'Color.Vision.Lab_3.0.1_amd64.AppImage'],
+android:['Download for Android','Signed APK · 23 MB',R+'ColorVisionLab-v3.0.1-app-universal-release.apk'],
 ios:['Open the web app','No App Store build yet · add to Home Screen','app/']};
 function detect(){const ua=navigator.userAgent,p=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||'';
  if(/android/i.test(ua))return'android';if(/iphone|ipad|ipod/i.test(ua)||(/Mac/.test(p)&&navigator.maxTouchPoints>1))return'ios';

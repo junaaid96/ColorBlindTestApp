@@ -1,1 +1,0 @@
-import{D as e,E as t,n,s as r,t as i}from"./index-B84n28A-.js";var a=e();function o(){let{t:e}=t();return(0,a.jsx)(r,{title:e(`nav_tests`),subtitle:e(`disclaimer`),children:(0,a.jsxs)(`div`,{className:`grid gap-6 lg:grid-cols-[1fr_22rem]`,children:[(0,a.jsx)(n,{only:[`quick`,`full`,`arrangement`,`contrast`]}),(0,a.jsx)(i,{})]})})}export{o as default};
