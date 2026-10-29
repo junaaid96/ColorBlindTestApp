@@ -11,7 +11,7 @@ This app is an educational screening tool. Smartphone displays are not calibrate
 
 **Color science**
 - Simulation uses **Machado, Oliveira & Fernandes (2009)** matrices with severity interpolation in *linear* sRGB. This is the approach open tools such as Metamer, DaltonLens and Colorblindly use. Tritan uses the Machado matrix for simplicity; Brettel 1997 is more accurate and is a candidate upgrade.
-- Daltonization uses the Fidaner-style error redistribution approach. The live camera uses a gamma-space 4x5 ColorMatrix approximation, which is fast enough for every frame.
+- Daltonization uses the Fidaner-style error redistribution approach. The live camera uses SVG `feColorMatrix` filters in linear RGB on the GPU; photos go through the same matrices in Rust (`src-tauri/src/color.rs`) via raw-byte IPC, or in TypeScript on the web.
 - Plate figure colors are found by search. The figure must be clearly distinct from the background under normal vision (ΔE CIE76), nearly identical under the target simulation, and close in luminance. Random lightness noise per dot then removes any brightness cue.
 - Color naming matches the nearest of about 50 named colors in CIELAB, with a confidence value.
 
@@ -23,15 +23,14 @@ Apps such as Tembrica, RGBlind, Color Blind Pal, Chromatic Vision Simulator and 
 - **Never rely on color alone.** Every state pairs an icon with text. The brand palette is Okabe–Ito.
 - Adaptive navigation through `NavigationSuiteScaffold`: a bottom bar on phones, a rail or drawer on tablets and foldables, a max content width of 840dp, and a side-by-side plate and keypad when the screen is wide.
 - Gentle gamification without dark patterns: a daily streak, best level and a 60-second session. There are no notifications or ads.
-- Privacy is a feature: no `INTERNET` permission at all.
+- Privacy is a feature: no network calls apart from the optional, signature-verified desktop update check.
 
 ## Architecture
-A single activity with Compose and Navigation Compose. `AppViewModel` exposes StateFlows from a DataStore `Repository`, using manual DI through `ColorVisionApp`. All color science and scoring is pure Kotlin with JVM unit tests.
+Version 3 is a Tauri v2 app: a React + TypeScript frontend (`src/`) with a small Rust core (`src-tauri/`). All colour science and scoring is pure TypeScript with Vitest tests; the pixel pipeline is mirrored in Rust with cargo tests. `src/platform` wraps every Tauri plugin behind a browser fallback, so the same bundle runs as a static web app. The Kotlin/Compose 2.0 app is preserved at the `kotlin-v2.0.0` tag.
 
 ## Next ideas
 - A Brettel tritan model, a CIEDE2000 namer and localised color names.
-- Per-device calibration (white point and gamma check).
+- Per-device calibration beyond the current grey-step check (white point and gamma).
 - A Wear OS / glance widget for streaks, and a Quick Settings tile for the lens.
 - An accessibility checker for UI screenshots (a palette contrast audit).
 - A Cambridge Colour Test-style trivector test using Landolt-C targets.
-- Export and import of history as CSV.
