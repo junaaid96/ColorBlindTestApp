@@ -4,3 +4,8 @@ src-tauri/target
 src-tauri/gen/schemas
 *.local
 .DS_Store
+
+# Android signing (never commit)
+*.jks
+*.keystore
+keystore.properties

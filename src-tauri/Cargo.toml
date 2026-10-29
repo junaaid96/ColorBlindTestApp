@@ -1,6 +1,6 @@
 [package]
 name = "color-vision-lab"
-version = "3.0.0"
+version = "3.0.1"
 description = "Colour vision screening and tools"
 authors = ["Md. Junaidul Islam"]
 license = "MIT"

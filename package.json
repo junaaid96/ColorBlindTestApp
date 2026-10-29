@@ -1,7 +1,7 @@
 {
   "name": "color-vision-lab",
   "private": true,
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "description": "Colour vision screening, simulation and colour identification. Tauri v2 app for desktop, mobile and web.",
   "license": "MIT",

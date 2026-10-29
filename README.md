@@ -132,7 +132,7 @@ JDK 17, Android SDK (platform 36, build-tools 36) and NDK 28:
 export ANDROID_HOME=~/Library/Android/sdk NDK_HOME=$ANDROID_HOME/ndk/28.2.13676358
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 npm run tauri android init
-npm run tauri android build -- --debug --apk      # or: --apk --aab for release (sign with your keystore)
+npm run tauri android build -- --debug --apk      # or: --apk --aab for release (signed if src-tauri/gen/android/keystore.properties exists)
 ```
 
 ### iOS
@@ -151,7 +151,7 @@ npm run build:web        # static site in dist/
 The root `vercel.json` deploys this build to Vercel (build command `npm run build:web`, output `dist`). The marketing page in `landing/` is a separate static Vercel project.
 
 ### Releases
-Pushing a `v*` tag runs `.github/workflows/release.yml`. It builds Windows, Linux, macOS (universal), Android (APK/AAB), an optional unsigned iOS build and the web zip, and attaches them to a draft GitHub Release. Publish the draft so the desktop updater can find `latest.json`.
+Pushing a `v*` tag runs `.github/workflows/release.yml`. It builds Windows, Linux, macOS (universal), Android (APK/AAB), an optional unsigned iOS build and the web zip, and attaches them to a draft GitHub Release. The Android APK and AAB are signed with the release keystore from the `ANDROID_KEYSTORE_*` / `ANDROID_KEY_*` repo secrets, and a final job writes `SHA256SUMS.txt` and publishes the release as Latest. Publish the draft so the desktop updater can find `latest.json`.
 Updater artifacts are signed with a key from `tauri signer generate`. Add the private key and its password as the `TAURI_SIGNING_PRIVATE_KEY` and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` repository secrets; the public key is in `src-tauri/tauri.conf.json`.
 
 ## Architecture
