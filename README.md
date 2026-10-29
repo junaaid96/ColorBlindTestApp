@@ -39,3 +39,7 @@ app/src/main/java/io/github/junaaid96/colorvision/
 CI (GitHub Actions) builds, tests, lints and uploads the debug APK on every push and pull request.
 
 Design research and rationale: [docs/DESIGN.md](docs/DESIGN.md). Contributing: [CONTRIBUTING.md](CONTRIBUTING.md). License: [MIT](LICENSE).
+
+## Landing page
+
+A static download page lives in [`landing/`](landing/) (plain HTML/CSS/JS). Live at https://color-vision-lab.vercel.app. See [`landing/README.md`](landing/README.md) for local preview and Vercel deploy settings.

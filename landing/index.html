@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Color Vision Lab: free, offline colour vision screening for Android</title>
+<meta name="description" content="Color Vision Lab is a free, open-source Android app to screen your colour vision with Ishihara-style plates, a D-15 hue test and contrast sensitivity. It also has a live Color Lens camera. It is offline, with no tracking.">
+<link rel="canonical" href="https://color-vision-lab.vercel.app/"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0b1220">
+<meta property="og:type" content="website"><meta property="og:url" content="https://color-vision-lab.vercel.app/"><meta property="og:title" content="Color Vision Lab: colour vision screening for Android"><meta property="og:description" content="Ishihara-style plates, D-15 hue test, contrast sensitivity and a live Color Lens. Offline, private, free and MIT-licensed."><meta property="og:image" content="https://color-vision-lab.vercel.app/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://color-vision-lab.vercel.app/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Color Vision Lab","operatingSystem":"Android 8.0+","applicationCategory":"HealthApplication","softwareVersion":"2.0.0","license":"https://opensource.org/licenses/MIT","offers":{"@type":"Offer","price":"0"},"downloadUrl":"https://github.com/junaaid96/ColorBlindTestApp/releases/latest/download/ColorVisionLab-2.0.0-debug.apk"}</script>
+<link rel="stylesheet" href="style.css"></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap row"><a href="#" class="brand"><img src="favicon.svg" alt="" width="28" height="28"> Color Vision Lab</a>
+<nav aria-label="Main"><a href="#features">Features</a><a href="#try">Try it</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>
+<button id="theme" class="icon" aria-label="Toggle dark mode">◐</button></div></header>
+<main id="main">
+<section class="hero wrap"><div>
+<p class="pill">v2.0.0 · Free and open source · Android 8.0+</p>
+<h1>See how you see colour.</h1>
+<p class="lead">Screen your colour vision with plates that are generated fresh each time. You can also see the world through other eyes and name any colour with your camera. Everything works offline, with no tracking.</p>
+<div class="cta"><a class="btn primary" href="https://github.com/junaaid96/ColorBlindTestApp/releases/latest/download/ColorVisionLab-2.0.0-debug.apk" download>⬇ Download APK <small>25.2 MB</small></a>
+<a class="btn" href="https://github.com/junaaid96/ColorBlindTestApp">View source on GitHub</a></div>
+<details class="sha"><summary>Verify the download (SHA-256)</summary><code>39e0b8e7a82042554f5139dcbd693e08f8cb806f500e3a34f87d2a957d9472ab</code><p>File: ColorVisionLab-2.0.0-debug.apk (25,213,947 bytes). Check it with <code>shasum -a 256</code> or <code>certutil -hashfile … SHA256</code>.</p></details>
+</div><div class="plate-wrap" aria-hidden="true"><canvas id="hero" width="360" height="360"></canvas></div></section>
+
+<section id="features" class="wrap"><h2>Everything in one app</h2><div class="grid">
+<article><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="18" cy="20" r="4" fill="#E69F00"/><circle cx="30" cy="28" r="5" fill="#56B4E9"/><circle cx="26" cy="16" r="3" fill="#56B4E9"/></svg><h3>Ishihara-style plates</h3><p>A quick 7-plate screening or a full 16-plate test. Plates are made on the device from confusion-line colours, so you can't memorise them.</p></article>
+<article><svg viewBox="0 0 48 48"><g stroke="currentColor" stroke-width="3" fill="none"><path d="M8 38V10M8 38h32"/></g><path d="M12 32l8-8 6 4 10-14" stroke="#009E73" stroke-width="3" fill="none"/></svg><h3>Result report</h3><p>Shows type, severity and confidence, with a breakdown for each plate. Share it as text or PDF.</p></article>
+<article><svg viewBox="0 0 48 48"><g><circle cx="10" cy="24" r="5" fill="#D55E00"/><circle cx="20" cy="24" r="5" fill="#E69F00"/><circle cx="30" cy="24" r="5" fill="#009E73"/><circle cx="40" cy="24" r="5" fill="#0072B2"/></g></svg><h3>Hue arrangement (D-15 style)</h3><p>Put 15 caps in order. It is scored with confusion index, selectivity, crossings and the likely axis.</p></article>
+<article><svg viewBox="0 0 48 48"><path d="M24 8l12 16h-7v16h-10V24h-7z" fill="currentColor" opacity=".35"/></svg><h3>Contrast sensitivity</h3><p>An adaptive staircase on a faint directional arrow gives you a log CS score.</p></article>
+<article><svg viewBox="0 0 48 48"><rect x="6" y="12" width="36" height="26" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="25" r="7" fill="none" stroke="#56B4E9" stroke-width="3"/><path d="M24 15v4M24 31v4M14 25h4M30 25h4" stroke="#E69F00" stroke-width="2"/></svg><h3>Color Lens</h3><p>The live camera names the colour under the crosshair. It can simulate protan, deutan and tritan vision, or enhance colours in real time, and it can speak names aloud.</p></article>
+<article><svg viewBox="0 0 48 48"><rect x="4" y="10" width="18" height="28" rx="3" fill="#E69F00"/><rect x="26" y="10" width="18" height="28" rx="3" fill="#8c8a5a"/></svg><h3>Photo simulator</h3><p>Compare any photo side by side as seen with each type of colour vision deficiency. It has a severity slider and a daltonize toggle.</p></article>
+<article><svg viewBox="0 0 48 48"><path d="M24 6c6 8 12 13 12 22a12 12 0 01-24 0c0-5 3-8 5-10 1 4 3 5 5 5-2-6 0-12 2-17z" fill="#D55E00"/></svg><h3>Daily practice</h3><p>A 60-second odd-hue game with levels, lives, a best score and a daily streak.</p></article>
+<article><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3"/><path d="M6 24h36M24 6c-8 10-8 26 0 36M24 6c8 10 8 26 0 36" stroke="currentColor" stroke-width="2" fill="none"/></svg><h3>4 languages and accessible</h3><p>English, বাংলা, Español and हिन्दी. It uses a colour-blind-safe palette, TalkBack labels, a high-contrast theme and reduced motion. History trends are kept on your phone.</p></article>
+</div></section>
+
+<section id="try" class="wrap"><h2>Try it in your browser</h2><p class="muted">This is a small preview of the app's two key ideas. It is not a test.</p>
+<div class="two"><div class="card"><h3>A fresh plate every time</h3><canvas id="demo" width="320" height="320" aria-label="Colour plate demo with a hidden number"></canvas>
+<div class="row gap"><button class="btn" id="newplate">New plate</button><button class="btn" id="reveal">Reveal number</button></div><p id="ans" class="muted" aria-live="polite"></p></div>
+<div class="card"><h3>See through other eyes</h3><canvas id="sim" width="320" height="200" aria-label="Colour swatches as seen with the chosen vision type"></canvas>
+<fieldset class="row gap wrapf"><legend class="sr">Vision type</legend>
+<label><input type="radio" name="cvd" value="none" checked> Typical</label><label><input type="radio" name="cvd" value="protan"> Protan</label><label><input type="radio" name="cvd" value="deutan"> Deutan</label><label><input type="radio" name="cvd" value="tritan"> Tritan</label></fieldset>
+<label>Severity <input type="range" id="sev" min="0" max="100" value="100"></label></div></div></section>
+
+<section class="wrap"><h2>How it works</h2><ol class="steps"><li><b>Download and install</b> the APK on any Android 8.0+ phone or tablet.</li><li><b>Take a test.</b> Start with the quick 7-plate screening, then try the full, hue and contrast tests.</li><li><b>Read your report.</b> It shows type, severity and confidence, and you can track trends in History.</li><li><b>Explore.</b> Point the Color Lens at the world or run photos through the simulator.</li></ol></section>
+
+<section id="install" class="wrap"><h2>Installing the APK</h2><div class="two"><ol class="steps">
+<li>Tap <b>Download APK</b> on your Android device.</li><li>Open the downloaded file. If you are asked, allow your browser or Files app to <b>install unknown apps</b> (Settings → Apps → Special app access → Install unknown apps).</li><li>Tap <b>Install</b>, then open Color Vision Lab.</li></ol>
+<div class="card note"><h3>About Play Protect</h3><p>This is a <b>debug build</b> that isn't on the Play Store, so Google Play Protect may warn you or ask to scan it. You can choose <i>Install anyway</i>. The full source is public, and you can check the SHA-256 checksum above or build it yourself with <code>./gradlew assembleDebug</code>.</p></div></div></section>
+
+<section class="wrap two"><div class="card"><h2>Private by design</h2><p>The app has <b>no internet permission</b>. It has no accounts, analytics or ads. Your results never leave your phone. The camera is used only for the Color Lens and processes frames on the device.</p></div>
+<div class="card warn"><h2>Screening, not a diagnosis</h2><p>Color Vision Lab is a screening and learning tool. It is not a medical device. Phone screens vary in colour and brightness. If you have any concerns about your vision, see an eye-care professional.</p></div></section>
+
+<section id="faq" class="wrap"><h2>FAQ</h2>
+<details><summary>Is it free?</summary><p>Yes. It is free and open source under the MIT license.</p></details>
+<details><summary>Which devices are supported?</summary><p>Android 8.0 (API 26) and newer, including phone, tablet and foldable layouts.</p></details>
+<details><summary>Is it on the Play Store or iOS?</summary><p>Not yet. For now it is a direct APK download from the GitHub releases page. It is Android only.</p></details>
+<details><summary>How accurate is it?</summary><p>The plates use the Machado 2009 confusion-line model, with lightness noise so brightness gives no clue. Results still depend on your screen, so treat them as an indication.</p></details>
+<details><summary>Why does my phone warn me about the APK?</summary><p>Android warns about any app installed from outside the Play Store. Debug builds also aren't signed with a release key. See the install section above.</p></details>
+<details><summary>How do I update?</summary><p>Download the newer APK from this page and install it over the old one.</p></details>
+</section></main>
+<footer class="wrap"><p>© 2026 Md. Junaidul Islam · <a href="https://github.com/junaaid96/ColorBlindTestApp/blob/master/LICENSE">MIT License</a> · <a href="https://github.com/junaaid96/ColorBlindTestApp">Source</a> · <a href="https://github.com/junaaid96/ColorBlindTestApp/blob/master/PRIVACY.md">Privacy</a> · <a href="https://github.com/junaaid96/ColorBlindTestApp/releases">Releases</a></p></footer>
+<script src="app.js" defer></script></body></html>
