@@ -1,0 +1,7 @@
+var e=[`timestamp`,`kind`,`classification`,`severity`,`score`,`confidence`],t=e=>{let t=String(e??``);return/[",\n]/.test(t)?`"${t.replace(/"/g,`""`)}"`:t};function n(n){return[e.join(`,`),...n.map(e=>[new Date(e.timestamp).toISOString(),e.kind,e.classification,e.severity,e.score,e.confidence].map(t).join(`,`))].join(`
+`)+`
+`}function r(e){return JSON.stringify({app:`Color Vision Lab`,version:3,exported:new Date().toISOString(),entries:e},null,2)}function i(e){let t=JSON.parse(e);return(Array.isArray(t)?t:t?.entries??[]).filter(e=>{let t=e;return!!t&&typeof t.timestamp==`number`&&typeof t.kind==`string`&&typeof t.score==`number`}).map(e=>({...e,id:e.id??`${e.timestamp}-${e.kind}`}))}function a(e,n){let r=Array.isArray(e.details)?e.details.map(e=>`<tr><td>${e.plate}</td><td>${e.kind}</td><td>${t(e.expected)}</td><td>${t(e.given)||`—`}</td><td>${e.correct?`✓`:`✗`}</td></tr>`).join(``):``;return`<!doctype html><html><head><meta charset="utf-8"><title>${n.title}</title><style>body{font:14px system-ui;margin:2rem;max-width:42rem}td,th{border:1px solid #ccc;padding:4px 8px}table{border-collapse:collapse}</style></head><body>
+<h1>${n.title}</h1><p>${new Date(e.timestamp).toLocaleString()}</p>
+<ul><li>${n.type}: ${e.classification??`—`}</li><li>${n.severity}: ${e.severity??`—`}</li><li>${n.confidence}: ${e.confidence}%</li><li>${n.score}: ${e.score}</li></ul>
+${r?`<table><tr><th>#</th><th>Kind</th><th>Expected</th><th>Given</th><th></th></tr>${r}</table>`:``}
+<p><small>${n.disclaimer}</small></p></body></html>`}export{a as i,r as n,i as r,n as t};

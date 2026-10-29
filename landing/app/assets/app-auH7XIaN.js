@@ -1,0 +1,1 @@
+import{a as e}from"./core-CWuOXYMg.js";import"./image-DbHA23wu.js";var t;(function(e){e.Nsis=`nsis`,e.Msi=`msi`,e.Deb=`deb`,e.Rpm=`rpm`,e.AppImage=`appimage`,e.App=`app`})(t||={});async function n(){return e(`plugin:app|version`)}async function r(){return e(`plugin:app|tauri_version`)}export{r as getTauriVersion,n as getVersion};
