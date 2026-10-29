@@ -74,7 +74,7 @@ export default function Simulator() {
             <figure key={p.key} className="card overflow-hidden">
               <img src={p.url} alt={t(p.key === "none" ? "type_none" : `type_${p.key}`)} className="w-full" />
               <figcaption className="flex items-center justify-between p-3 text-sm font-semibold">{t(p.key === "none" ? "type_none" : `type_${p.key}`)}
-                <button className="btn !min-h-9 !px-3 text-xs" onClick={() => savePanel(p)} aria-label={t("sim_save")}><Icon name="download" size={16} /></button></figcaption>
+                <button className="btn !px-3 text-xs" onClick={() => savePanel(p)} aria-label={t("sim_save")}><Icon name="download" size={16} /></button></figcaption>
             </figure>
           ))}
         </div>

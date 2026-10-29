@@ -3,7 +3,7 @@ import { Icon, Page, Stat } from "../components/ui";
 import type { HistoryEntry } from "../lib/models";
 import { resultReportHtml } from "../lib/report";
 import { saveFile, share } from "../platform";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function summary(e: HistoryEntry, t: ReturnType<typeof useApp>["t"]) {
   const cls = e.classification ? t(`cls_${e.classification}`) : e.kind;
@@ -13,7 +13,9 @@ export function summary(e: HistoryEntry, t: ReturnType<typeof useApp>["t"]) {
 export default function Result() {
   const { t, lastResult: e, go } = useApp();
   const [msg, setMsg] = useState("");
-  if (!e) { go("home"); return null; }
+  // Redirect after render (e.g. a reload on #result) instead of updating state during render.
+  useEffect(() => { if (!e) go("home"); }, [e, go]);
+  if (!e) return null;
   const tone = e.classification === "typical" ? "ok" : e.classification === "inconclusive" ? "warn" : "bad";
   const exportReport = async () => {
     const html = resultReportHtml(e, { title: t("result_title"), disclaimer: t("disclaimer"), type: t("result_type"), severity: t("result_severity"), confidence: t("result_confidence"), score: t("result_score") });

@@ -19,7 +19,7 @@ ios:['Open the web app','No App Store build yet · add to Home Screen','app/']};
 function detect(){const ua=navigator.userAgent,p=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||'';
  if(/android/i.test(ua))return'android';if(/iphone|ipad|ipod/i.test(ua)||(/Mac/.test(p)&&navigator.maxTouchPoints>1))return'ios';
  if(/win/i.test(p)||/windows/i.test(ua))return'windows';if(/mac/i.test(p)||/mac os/i.test(ua))return'mac';if(/linux|x11|cros/i.test(p+ua))return'linux';return null}
-const os=detect();if(os){const[l,s,h]=OS[os],a=$('#primary-dl');$('#dl-label').textContent=l;$('#dl-sub').textContent=s;a.href=h;const c=document.querySelector(`[data-os="${os}"]`);if(c)c.classList.add('mine')}
+const os=detect();if(os){const[l,s,h]=OS[os],a=$('#primary-dl');$('#dl-label').textContent=l;$('#dl-sub').textContent=s;a.href=h;if(h==='app/'){a.target='_blank';a.rel='noopener'}const c=document.querySelector(`[data-os="${os}"]`);if(c)c.classList.add('mine')}
 /* colour maths: Machado 2009, severity 1.0, linear RGB */
 const M={protan:[.152286,1.052583,-.204868,.114503,.786281,.099216,-.003882,-.048116,1.051998],deutan:[.367322,.860646,-.227968,.280085,.672501,.047413,-.01182,.04294,.968881],tritan:[1.255528,-.076749,-.178779,-.078411,.930809,.147602,.004733,.691367,.3039]};
 const LIN=new Float32Array(256);for(let i=0;i<256;i++){const v=i/255;LIN[i]=v<=.04045?v/12.92:((v+.055)/1.055)**2.4}
@@ -67,3 +67,16 @@ $('#photo').addEventListener('change',e=>{const f=e.target.files&&e.target.files
 idle(loadScene);
 /* reveal on scroll */
 if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});$$('.reveal').forEach(el=>io.observe(el))}else $$('.reveal').forEach(el=>el.classList.add('in'));
+/* screenshot gallery: device tabs, theme toggle, keyboard lightbox */
+(()=>{const box=document.getElementById('shots');if(!box)return;const tabs=[...document.querySelectorAll('[data-dev]')],ths=[...document.querySelectorAll('[data-th]')];
+let dev='desktop',th=document.documentElement.dataset.theme==='dark'||(!document.documentElement.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+const all=[...box.querySelectorAll('.shot')];const vis=()=>all.filter(f=>!f.hidden);
+function apply(){box.dataset.device=dev;all.forEach(f=>f.hidden=!(f.dataset.device===dev&&f.dataset.theme===th));tabs.forEach(b=>{const on=b.dataset.dev===dev;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1});ths.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.th===th)))}
+tabs.forEach((b,i)=>{b.addEventListener('click',()=>{dev=b.dataset.dev;apply()});b.addEventListener('keydown',e=>{const d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d)return;e.preventDefault();const n=tabs[(i+d+tabs.length)%tabs.length];dev=n.dataset.dev;apply();n.focus()})});
+ths.forEach(b=>b.addEventListener('click',()=>{th=b.dataset.th;apply()}));apply();
+const lb=document.getElementById('lightbox');if(!lb||!lb.showModal)return;const li=lb.querySelector('img'),lc=lb.querySelector('figcaption');let cur=0,opener=null;
+function show(i){const v=vis();cur=(i+v.length)%v.length;const im=v[cur].querySelector('img');li.src=im.currentSrc||im.src;li.alt=im.alt;lc.textContent=v[cur].querySelector('figcaption').textContent+' · '+(cur+1)+' / '+v.length}
+box.addEventListener('click',e=>{const b=e.target.closest('.shot-open');if(!b)return;opener=b;show(vis().indexOf(b.parentElement));lb.showModal();lb.querySelector('.lb-close').focus()});
+lb.querySelector('.lb-prev').addEventListener('click',()=>show(cur-1));lb.querySelector('.lb-next').addEventListener('click',()=>show(cur+1));lb.querySelector('.lb-close').addEventListener('click',()=>lb.close());
+lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+lb.addEventListener('click',e=>{if(e.target===lb)lb.close()});lb.addEventListener('close',()=>{li.removeAttribute('src');opener&&opener.focus()})})();
