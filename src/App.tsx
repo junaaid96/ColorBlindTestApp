@@ -64,16 +64,16 @@ export default function App() {
   return (
     <div className="flex min-h-dvh">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 btn">Skip to content</a>
-      <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 flex justify-around border-t border-[var(--line)] bg-[var(--card)] pb-[env(safe-area-inset-bottom)] md:static md:w-60 md:flex-col md:justify-start md:gap-1 md:border-r md:border-t-0 md:p-4">
+      <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 flex justify-around pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)] border-t border-[var(--line)] bg-[var(--card)] pb-[env(safe-area-inset-bottom)] md:sticky md:top-0 md:h-dvh md:w-60 md:shrink-0 md:overflow-y-auto md:pt-[max(1rem,env(safe-area-inset-top))] md:flex-col md:justify-start md:gap-1 md:border-r md:border-t-0 md:p-4">
         <div className="mb-6 hidden items-center gap-2 px-3 text-lg font-bold md:flex"><img src="./favicon.svg" alt="" width={28} height={28} />{t("appName")}</div>
         {NAV.map((r, i) => (
           <button key={r} onClick={() => go(r)} aria-current={route === r ? "page" : undefined} title={`${t(LABEL[r])} (${i + 1})`}
-            className={`flex flex-col items-center gap-0.5 rounded-xl px-2 py-2 text-[11px] md:flex-row md:gap-3 md:px-3 md:text-sm ${route === r ? "bg-primary/15 text-primary font-semibold" : "muted hover:bg-black/5"} ${r === "practice" || r === "history" ? "max-sm:hidden" : ""}`}>
+            className={`flex min-h-11 min-w-11 flex-col items-center justify-center gap-0.5 rounded-xl px-2 py-2 text-[11px] md:flex-row md:justify-start md:gap-3 md:px-3 md:text-sm ${route === r ? "bg-brand/15 text-brand dark:text-sky font-semibold" : "muted hover:bg-black/5"} ${r === "practice" || r === "history" ? "max-sm:hidden" : ""}`}>
             <Icon name={r} size={20} /><span>{t(LABEL[r])}</span>
           </button>
         ))}
       </nav>
-      <main id="main" tabIndex={-1} className="flex-1 overflow-x-hidden pb-24 md:pb-0">
+      <main id="main" tabIndex={-1} className="min-w-0 flex-1 overflow-x-clip pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-0">
         <Suspense fallback={<div className="p-8 muted">…</div>}><Screen route={route} /></Suspense>
       </main>
       {help && (

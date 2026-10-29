@@ -20,6 +20,7 @@
 [data-motion="reduce"] *, [data-motion="reduce"] *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 
 html, body, #root { height: 100%; }
+body { overscroll-behavior-y: none; -webkit-tap-highlight-color: transparent; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 1.25rem; }
 .muted { color: var(--muted); }
@@ -34,3 +35,10 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); -
 .fade-in { animation: fade .25s ease-out; }
 @keyframes fade { from { opacity: 0; transform: translateY(6px); } }
 input[type="range"] { accent-color: var(--color-brand); width: 100%; }
+/* Programmatic focus targets (route headings, <main>) should not show a ring; keyboard focus still does. */
+[tabindex="-1"]:focus, [tabindex="-1"]:focus-visible { outline: none; }
+/* Touch devices: chips and range thumbs get full 44px targets. */
+@media (pointer: coarse) { .chip { min-height: 44px; } input[type="range"] { min-height: 44px; } }
+/* Notch / status bar in landscape and on iOS with viewport-fit=cover. */
+#main { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); padding-top: env(safe-area-inset-top); }
+@media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }

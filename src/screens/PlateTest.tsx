@@ -14,7 +14,8 @@ export default function PlateTest({ full }: { full: boolean }) {
   const [value, setValue] = useState("");
   const [calibrated, setCalibrated] = useState(settings.calibrated);
   const input = useRef<HTMLInputElement>(null);
-  useEffect(() => { input.current?.focus(); }, [i, calibrated]);
+  // Only autofocus with a mouse/keyboard; on touch it would pop the system keyboard over the on-screen keypad.
+  useEffect(() => { if (matchMedia("(pointer: fine)").matches) input.current?.focus({ preventScroll: true }); }, [i, calibrated]);
 
   if (!calibrated) return <Page title={t(full ? "full_title" : "quick_title")}><Calibration onDone={() => setCalibrated(true)} /></Page>;
 
@@ -37,13 +38,13 @@ export default function PlateTest({ full }: { full: boolean }) {
         <div className="h-full bg-brand transition-all" style={{ width: `${(i / plates.length) * 100}%` }} />
       </div>
       <Announce text={t("plate_of", { n: i + 1, total: plates.length })} />
-      <div className="mt-6 grid items-center gap-8 md:grid-cols-[1fr_20rem]">
-        <div className="grid place-items-center"><PlateView key={i} plate={plates[i]} /></div>
-        <form className="card flex flex-col gap-4 p-5" onSubmit={(e) => { e.preventDefault(); submit(value); }}>
+      <div className="mt-6 grid grid-cols-1 items-center gap-8 md:grid-cols-[minmax(0,1fr)_20rem]">
+        <div className="grid min-w-0 place-items-center"><PlateView key={i} plate={plates[i]} /></div>
+        <form className="card flex min-w-0 flex-col gap-4 p-5" onSubmit={(e) => { e.preventDefault(); submit(value); }}>
           <label htmlFor="ans" className="font-semibold">{t("plate_prompt")}</label>
           <input id="ans" ref={input} inputMode="numeric" pattern="[0-9]*" autoComplete="off" maxLength={2} value={value}
             onChange={(e) => setValue(e.target.value.replace(/\D/g, "").slice(0, 2))}
-            className="rounded-2xl border border-[var(--line)] bg-transparent px-4 py-3 text-center text-3xl font-bold tracking-widest" />
+            className="w-full min-w-0 rounded-2xl border border-[var(--line)] bg-transparent px-4 py-3 text-center text-3xl font-bold tracking-widest" />
           <div className="grid grid-cols-3 gap-2">
             {["1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫", "0"].map((k) => <button type="button" key={k} className="btn !rounded-2xl" onClick={() => press(k)} aria-label={k === "⌫" ? "Delete" : k}>{k}</button>)}
             <button type="submit" className="btn btn-primary !rounded-2xl" disabled={!value}>{t("next")}</button>
