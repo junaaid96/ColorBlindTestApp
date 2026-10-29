@@ -1,0 +1,148 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+# Default to read-only; jobs that publish ask for contents: write.
+permissions:
+  contents: read
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      release_id: ${{ steps.rel.outputs.id }}
+    steps:
+      - id: rel
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create "$TAG" -R "$GITHUB_REPOSITORY" --draft --title "Color Vision Lab $TAG" --notes "See the README for install notes."
+          echo "id=$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json databaseId -q .databaseId)" >> "$GITHUB_OUTPUT"
+
+  desktop:
+    needs: create-release
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            args: --target universal-apple-darwin
+          - platform: ubuntu-22.04
+            args: ""
+          - platform: windows-latest
+            args: ""
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      - run: npm ci
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          releaseId: ${{ needs.create-release.outputs.release_id }}
+          args: ${{ matrix.args }}
+          uploadUpdaterJson: true
+
+  android:
+    needs: create-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: android-actions/setup-android@v4
+      - run: sdkmanager "ndk;28.2.13676358" "platforms;android-36" "build-tools;36.0.0"
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - run: npm ci
+      - name: Build APK and AAB
+        env:
+          NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/28.2.13676358
+        run: |
+          [ -d src-tauri/gen/android ] || npx tauri android init --ci
+          npx tauri android build --ci --apk --aab
+      - name: Upload (unsigned; sign with your own keystore before store upload)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p out
+          find src-tauri/gen/android/app/build/outputs \( -name '*.apk' -o -name '*.aab' \) -exec cp {} out/ \;
+          for f in out/*; do mv "$f" "out/ColorVisionLab-${GITHUB_REF_NAME}-$(basename "$f")"; done
+          gh release upload "$GITHUB_REF_NAME" out/* --clobber -R "$GITHUB_REPOSITORY"
+
+  ios:
+    # Unsigned simulator-free build; needs Apple signing secrets for a real IPA. Failures don't block the release.
+    needs: create-release
+    runs-on: macos-latest
+    continue-on-error: true
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios,aarch64-apple-ios-sim
+      - run: npm ci
+      - run: |
+          [ -d src-tauri/gen/apple ] || npx tauri ios init --ci
+          npx tauri ios build --ci --target aarch64-sim || echo "iOS build needs signing; skipped"
+
+  web:
+    needs: create-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:web
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          (cd dist && zip -r "../ColorVisionLab-${GITHUB_REF_NAME}-web.zip" .)
+          gh release upload "$GITHUB_REF_NAME" "ColorVisionLab-${GITHUB_REF_NAME}-web.zip" --clobber -R "$GITHUB_REPOSITORY"

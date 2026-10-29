@@ -1,11 +1,11 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Color Vision Lab: free, offline colour vision screening for Android</title>
-<meta name="description" content="Color Vision Lab is a free, open-source Android app to screen your colour vision with Ishihara-style plates, a D-15 hue test and contrast sensitivity. It also has a live Color Lens camera. It is offline, with no tracking.">
-<link rel="canonical" href="https://color-vision-lab.vercel.app/"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Color Vision Lab: free, offline colour vision screening for every device</title>
+<meta name="description" content="Color Vision Lab is a free, open-source app for Windows, macOS, Linux, Android, iOS and the web that screens your colour vision with Ishihara-style plates, a D-15 hue test and contrast sensitivity. It also has a live Color Lens camera. It is offline, with no tracking.">
+<link rel="canonical" href="https://color-vision-lab-codejborg.vercel.app/"><link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#0b1220">
-<meta property="og:type" content="website"><meta property="og:url" content="https://color-vision-lab.vercel.app/"><meta property="og:title" content="Color Vision Lab: colour vision screening for Android"><meta property="og:description" content="Ishihara-style plates, D-15 hue test, contrast sensitivity and a live Color Lens. Offline, private, free and MIT-licensed."><meta property="og:image" content="https://color-vision-lab.vercel.app/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://color-vision-lab.vercel.app/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Color Vision Lab","operatingSystem":"Android 8.0+","applicationCategory":"HealthApplication","softwareVersion":"2.0.0","license":"https://opensource.org/licenses/MIT","offers":{"@type":"Offer","price":"0"},"downloadUrl":"https://github.com/junaaid96/ColorBlindTestApp/releases/latest/download/ColorVisionLab-2.0.0-debug.apk"}</script>
+<meta property="og:type" content="website"><meta property="og:url" content="https://color-vision-lab-codejborg.vercel.app/"><meta property="og:title" content="Color Vision Lab: colour vision screening on any device"><meta property="og:description" content="Ishihara-style plates, D-15 hue test, contrast sensitivity and a live Color Lens. Offline, private, free and MIT-licensed."><meta property="og:image" content="https://color-vision-lab-codejborg.vercel.app/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://color-vision-lab-codejborg.vercel.app/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Color Vision Lab","operatingSystem":"Windows, macOS, Linux, Android, iOS, Web","applicationCategory":"HealthApplication","softwareVersion":"3.0.0","license":"https://opensource.org/licenses/MIT","offers":{"@type":"Offer","price":"0"},"downloadUrl":"https://github.com/junaaid96/color-vision-lab/releases/latest"}</script>
 <link rel="stylesheet" href="style.css"></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav"><div class="wrap row"><a href="#" class="brand"><img src="favicon.svg" alt="" width="28" height="28"> Color Vision Lab</a>
@@ -13,12 +13,12 @@
 <button id="theme" class="icon" aria-label="Toggle dark mode">◐</button></div></header>
 <main id="main">
 <section class="hero wrap"><div>
-<p class="pill">v2.0.0 · Free and open source · Android 8.0+</p>
+<p class="pill">v3.0.0 · Free and open source · Desktop, mobile and web</p>
 <h1>See how you see colour.</h1>
 <p class="lead">Screen your colour vision with plates that are generated fresh each time. You can also see the world through other eyes and name any colour with your camera. Everything works offline, with no tracking.</p>
-<div class="cta"><a class="btn primary" href="https://github.com/junaaid96/ColorBlindTestApp/releases/latest/download/ColorVisionLab-2.0.0-debug.apk" download>⬇ Download APK <small>25.2 MB</small></a>
-<a class="btn" href="https://github.com/junaaid96/ColorBlindTestApp">View source on GitHub</a></div>
-<details class="sha"><summary>Verify the download (SHA-256)</summary><code>39e0b8e7a82042554f5139dcbd693e08f8cb806f500e3a34f87d2a957d9472ab</code><p>File: ColorVisionLab-2.0.0-debug.apk (25,213,947 bytes). Check it with <code>shasum -a 256</code> or <code>certutil -hashfile … SHA256</code>.</p></details>
+<div class="cta"><a class="btn primary" href="https://github.com/junaaid96/color-vision-lab/releases/latest">⬇ Download <small>Windows · macOS · Linux · Android</small></a>
+<a class="btn" href="https://github.com/junaaid96/color-vision-lab">View source on GitHub</a></div>
+<p class="small">Each release lists SHA-256 checksums next to the files. The Kotlin 2.0 Android build is still available under the <a href="https://github.com/junaaid96/color-vision-lab/releases/tag/kotlin-v2.0.0">kotlin-v2.0.0</a> tag.</p>
 </div><div class="plate-wrap" aria-hidden="true"><canvas id="hero" width="360" height="360"></canvas></div></section>
 
 <section id="features" class="wrap"><h2>Everything in one app</h2><div class="grid">
@@ -40,22 +40,22 @@
 <label><input type="radio" name="cvd" value="none" checked> Typical</label><label><input type="radio" name="cvd" value="protan"> Protan</label><label><input type="radio" name="cvd" value="deutan"> Deutan</label><label><input type="radio" name="cvd" value="tritan"> Tritan</label></fieldset>
 <label>Severity <input type="range" id="sev" min="0" max="100" value="100"></label></div></div></section>
 
-<section class="wrap"><h2>How it works</h2><ol class="steps"><li><b>Download and install</b> the APK on any Android 8.0+ phone or tablet.</li><li><b>Take a test.</b> Start with the quick 7-plate screening, then try the full, hue and contrast tests.</li><li><b>Read your report.</b> It shows type, severity and confidence, and you can track trends in History.</li><li><b>Explore.</b> Point the Color Lens at the world or run photos through the simulator.</li></ol></section>
+<section class="wrap"><h2>How it works</h2><ol class="steps"><li><b>Download and install</b> the app for your computer or phone, or open the web version in a browser.</li><li><b>Take a test.</b> Start with the quick 7-plate screening, then try the full, hue and contrast tests.</li><li><b>Read your report.</b> It shows type, severity and confidence, and you can track trends in History.</li><li><b>Explore.</b> Point the Color Lens at the world or run photos through the simulator.</li></ol></section>
 
-<section id="install" class="wrap"><h2>Installing the APK</h2><div class="two"><ol class="steps">
-<li>Tap <b>Download APK</b> on your Android device.</li><li>Open the downloaded file. If you are asked, allow your browser or Files app to <b>install unknown apps</b> (Settings → Apps → Special app access → Install unknown apps).</li><li>Tap <b>Install</b>, then open Color Vision Lab.</li></ol>
-<div class="card note"><h3>About Play Protect</h3><p>This is a <b>debug build</b> that isn't on the Play Store, so Google Play Protect may warn you or ask to scan it. You can choose <i>Install anyway</i>. The full source is public, and you can check the SHA-256 checksum above or build it yourself with <code>./gradlew assembleDebug</code>.</p></div></div></section>
+<section id="install" class="wrap"><h2>Installing</h2><div class="two"><ol class="steps">
+<li><b>Windows:</b> run the <code>.msi</code> or <code>-setup.exe</code>.</li><li><b>macOS:</b> open the <code>.dmg</code> and drag the app to Applications. Unsigned builds need right-click → Open the first time.</li><li><b>Linux:</b> use the <code>.AppImage</code>, <code>.deb</code> or <code>.rpm</code>.</li><li><b>Android:</b> install the <code>.apk</code> and allow <i>install unknown apps</i> if asked.</li></ol>
+<div class="card note"><h3>About warnings</h3><p>Builds are not yet code-signed with a store certificate, so Windows SmartScreen, macOS Gatekeeper or Google Play Protect may warn you. The full source is public, and you can build it yourself with <code>npm run tauri build</code>.</p></div></div></section>
 
-<section class="wrap two"><div class="card"><h2>Private by design</h2><p>The app has <b>no internet permission</b>. It has no accounts, analytics or ads. Your results never leave your phone. The camera is used only for the Color Lens and processes frames on the device.</p></div>
-<div class="card warn"><h2>Screening, not a diagnosis</h2><p>Color Vision Lab is a screening and learning tool. It is not a medical device. Phone screens vary in colour and brightness. If you have any concerns about your vision, see an eye-care professional.</p></div></section>
+<section class="wrap two"><div class="card"><h2>Private by design</h2><p>The app makes no network calls except the optional desktop update check against GitHub Releases. It has no accounts, analytics or ads. Your results never leave your device. The camera is used only for the Color Lens and processes frames on the device.</p></div>
+<div class="card warn"><h2>Screening, not a diagnosis</h2><p>Color Vision Lab is a screening and learning tool. It is not a medical device. Screens vary in colour and brightness. If you have any concerns about your vision, see an eye-care professional.</p></div></section>
 
 <section id="faq" class="wrap"><h2>FAQ</h2>
 <details><summary>Is it free?</summary><p>Yes. It is free and open source under the MIT license.</p></details>
-<details><summary>Which devices are supported?</summary><p>Android 8.0 (API 26) and newer, including phone, tablet and foldable layouts.</p></details>
-<details><summary>Is it on the Play Store or iOS?</summary><p>Not yet. For now it is a direct APK download from the GitHub releases page. It is Android only.</p></details>
+<details><summary>Which devices are supported?</summary><p>Windows 10+, macOS 11+, modern Linux desktops, Android 7.0+ and any modern browser. iOS builds can be made from source with Xcode.</p></details>
+<details><summary>Is it in an app store?</summary><p>Not yet. Downloads come from the GitHub releases page, and there is a web version that works offline.</p></details>
 <details><summary>How accurate is it?</summary><p>The plates use the Machado 2009 confusion-line model, with lightness noise so brightness gives no clue. Results still depend on your screen, so treat them as an indication.</p></details>
-<details><summary>Why does my phone warn me about the APK?</summary><p>Android warns about any app installed from outside the Play Store. Debug builds also aren't signed with a release key. See the install section above.</p></details>
-<details><summary>How do I update?</summary><p>Download the newer APK from this page and install it over the old one.</p></details>
+<details><summary>Why does my device warn me?</summary><p>Operating systems warn about apps installed from outside their stores or without a paid signing certificate. See the install section above.</p></details>
+<details><summary>How do I update?</summary><p>Desktop apps check GitHub Releases from Settings and update themselves. On Android, install the newer APK over the old one.</p></details>
 </section></main>
-<footer class="wrap"><p>© 2026 Md. Junaidul Islam · <a href="https://github.com/junaaid96/ColorBlindTestApp/blob/master/LICENSE">MIT License</a> · <a href="https://github.com/junaaid96/ColorBlindTestApp">Source</a> · <a href="https://github.com/junaaid96/ColorBlindTestApp/blob/master/PRIVACY.md">Privacy</a> · <a href="https://github.com/junaaid96/ColorBlindTestApp/releases">Releases</a></p></footer>
+<footer class="wrap"><p>© 2026 Md. Junaidul Islam · <a href="https://github.com/junaaid96/color-vision-lab/blob/HEAD/LICENSE">MIT License</a> · <a href="https://github.com/junaaid96/color-vision-lab">Source</a> · <a href="https://github.com/junaaid96/color-vision-lab/blob/HEAD/PRIVACY.md">Privacy</a> · <a href="https://github.com/junaaid96/color-vision-lab/releases">Releases</a></p></footer>
 <script src="app.js" defer></script></body></html>

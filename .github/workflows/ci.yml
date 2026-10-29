@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: Lint, type-check, test, web build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build:web
+
+  rust:
+    name: cargo test and clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - name: Placeholder frontend for tauri::generate_context!
+        run: mkdir -p dist && echo '<!doctype html>' > dist/index.html
+      - run: cargo fmt --check
+        working-directory: src-tauri
+      - run: cargo clippy --all-targets -- -D warnings
+        working-directory: src-tauri
+      - run: cargo test
+        working-directory: src-tauri

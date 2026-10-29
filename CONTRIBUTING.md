@@ -1,17 +1,35 @@
 # Contributing
 
-Thanks for helping make color vision tools better.
+Thanks for helping make colour vision tools better.
 
 ## Setup
-- JDK 17, Android SDK platform 37 and build-tools 36.
-- `./gradlew assembleDebug testDebugUnitTest lint` must pass before you open a PR (CI runs the same).
+- Node.js 22+ and npm.
+- Rust (stable) via [rustup](https://rustup.rs) and the [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/) for your OS.
+- Android: JDK 17, Android SDK (platform 36, build-tools 36), NDK 28, and `rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android`.
+- iOS: macOS with full Xcode, CocoaPods, and `rustup target add aarch64-apple-ios aarch64-apple-ios-sim`.
+
+```sh
+npm ci
+npm run tauri dev     # desktop app with hot reload
+npm run dev           # browser only (web fallbacks)
+```
+
+## Before you open a PR
+These must pass (CI runs the same):
+
+```sh
+npm run lint && npm run typecheck && npm test && npm run build:web
+cd src-tauri && cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test
+```
 
 ## Guidelines
-- Kotlin + Jetpack Compose + Material 3 only; keep features offline and tracking-free.
-- Put color science and scoring in pure Kotlin (`color/`, `tests/`) with unit tests; UI in `feature/`.
-- Every user-visible string goes in `res/values/strings.xml` **and** the `bn`, `es` and `hi` translations (English fallback is fine; mark it in the PR).
-- Accessibility: content descriptions for non-text UI, 48dp touch targets, never rely on color alone.
+- Keep features offline and tracking-free. New network access needs a very good reason and a PRIVACY.md update.
+- Colour science and scoring live in pure TypeScript in `src/lib/` with Vitest tests. Pixel work that also runs natively lives in `src-tauri/src/color.rs` with Rust tests. Keep both matrix sets identical.
+- Platform access goes through `src/platform/index.ts`, which must always have a browser fallback.
+- New Tauri commands or plugins need the narrowest permission in `src-tauri/capabilities/`.
+- Every user-visible string goes in `src/i18n/en.ts`. Add `bn`, `es` and `hi` translations in `src/i18n/index.ts` when you can (English is the fallback; mention it in the PR).
+- Accessibility: label non-text controls, keep 44px touch targets, support the keyboard, and never rely on colour alone.
 - Do not present results as a diagnosis.
 
 ## Translations
-Add `res/values-<lang>/strings.xml`; the locale config is generated automatically, so the language appears in the system per-app language settings.
+Add a locale to `Locale` in `src/lib/models.ts`, a partial string table in `src/i18n/index.ts`, and an entry in `LOCALES`.

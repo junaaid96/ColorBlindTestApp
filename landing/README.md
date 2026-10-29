@@ -1,6 +1,6 @@
 # Color Vision Lab — landing page
 
-Static download page for the Color Vision Lab Android app (plain HTML, CSS and JS, no build step). Live: https://color-vision-lab.vercel.app
+Static download page for Color Vision Lab (plain HTML, CSS and JS, no build step). Live: https://color-vision-lab-codejborg.vercel.app
 
 ## Preview locally
 ```sh

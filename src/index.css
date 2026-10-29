@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Okabe-Ito colour-blind-safe palette drives all accents. */
+@theme {
+  --color-brand: #0072b2;
+  --color-sky: #56b4e9;
+  --color-ok: #009e73;
+  --color-warn: #e69f00;
+  --color-bad: #d55e00;
+  --color-pink: #cc79a7;
+  --color-sun: #f0e442;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Bengali", "Noto Sans Devanagari", sans-serif;
+}
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root { --bg: #f6f7fb; --card: #ffffff; --fg: #12141a; --muted: #5b6170; --line: #e2e5ee; }
+[data-theme="dark"] { --bg: #0b0d12; --card: #151821; --fg: #eef0f6; --muted: #9aa1b2; --line: #262b38; }
+[data-contrast="high"] { --muted: var(--fg); --line: var(--fg); }
+[data-contrast="high"][data-theme="dark"] { --bg: #000; --card: #000; }
+[data-motion="reduce"] *, [data-motion="reduce"] *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+
+html, body, #root { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 1.25rem; }
+.muted { color: var(--muted); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .55rem 1.1rem; border-radius: 999px; font-weight: 600; border: 1px solid var(--line); background: var(--card); transition: transform .12s, background .12s; }
+.btn:hover { transform: translateY(-1px); }
+.btn:disabled { opacity: .5; transform: none; }
+.btn-primary { background: var(--color-brand); color: white; border-color: transparent; }
+.chip { min-height: 36px; padding: .3rem .9rem; border-radius: 999px; border: 1px solid var(--line); font-size: .875rem; }
+.chip[aria-pressed="true"] { background: var(--color-brand); color: white; border-color: transparent; }
+:focus-visible { outline: 3px solid var(--color-warn); outline-offset: 2px; }
+.safe-b { padding-bottom: max(env(safe-area-inset-bottom), .5rem); }
+.fade-in { animation: fade .25s ease-out; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } }
+input[type="range"] { accent-color: var(--color-brand); width: 100%; }
