@@ -8,7 +8,9 @@
       { "key": "X-Frame-Options", "value": "DENY" },
       { "key": "Permissions-Policy", "value": "camera=(self), microphone=(), geolocation=()" },
       { "key": "Content-Security-Policy", "value": "default-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-qGd2rs82/O7JIOzMLeuwhHLoN2uVsWlzM65rkdqI1XM='; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" } ] },
-    { "source": "/(.*)\\.(css|js|svg|png|webp)", "headers": [
+    { "source": "/(.*)\\.(css|js)", "headers": [
+      { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" } ] },
+    { "source": "/(.*)\\.(svg|png|webp)", "headers": [
       { "key": "Cache-Control", "value": "public, max-age=86400" } ] },
     { "source": "/app/sw.js", "headers": [
       { "key": "Cache-Control", "value": "no-cache" } ] }
