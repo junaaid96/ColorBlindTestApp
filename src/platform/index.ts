@@ -135,7 +135,7 @@ export async function nativeFilterPixels(rgba: Uint8ClampedArray, mode: string, 
 }
 
 export async function appInfo(): Promise<{ version: string; os: OsFamily; arch?: string; tauri?: string }> {
-  if (!isTauri()) return { version: import.meta.env.VITE_APP_VERSION ?? "3.0.0", os: "web" };
+  if (!isTauri()) return { version: import.meta.env.VITE_APP_VERSION ?? "3.0.1", os: "web" };
   const { getVersion, getTauriVersion } = await import("@tauri-apps/api/app");
   const { arch } = await import("@tauri-apps/plugin-os");
   return { version: await getVersion(), tauri: await getTauriVersion(), os: await osFamily(), arch: arch() };
