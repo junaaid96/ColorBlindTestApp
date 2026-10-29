@@ -1,61 +1,270 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Color Vision Lab: free, offline colour vision screening for every device</title>
-<meta name="description" content="Color Vision Lab is a free, open-source app for Windows, macOS, Linux, Android, iOS and the web that screens your colour vision with Ishihara-style plates, a D-15 hue test and contrast sensitivity. It also has a live Color Lens camera. It is offline, with no tracking.">
-<link rel="canonical" href="https://color-vision-lab-codejborg.vercel.app/"><link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#0b1220">
-<meta property="og:type" content="website"><meta property="og:url" content="https://color-vision-lab-codejborg.vercel.app/"><meta property="og:title" content="Color Vision Lab: colour vision screening on any device"><meta property="og:description" content="Ishihara-style plates, D-15 hue test, contrast sensitivity and a live Color Lens. Offline, private, free and MIT-licensed."><meta property="og:image" content="https://color-vision-lab-codejborg.vercel.app/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://color-vision-lab-codejborg.vercel.app/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Color Vision Lab","operatingSystem":"Windows, macOS, Linux, Android, iOS, Web","applicationCategory":"HealthApplication","softwareVersion":"3.0.0","license":"https://opensource.org/licenses/MIT","offers":{"@type":"Offer","price":"0"},"downloadUrl":"https://github.com/junaaid96/color-vision-lab/releases/latest"}</script>
-<link rel="stylesheet" href="style.css"></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Color Vision Lab: free colour vision test and simulator for every device</title>
+<meta name="description" content="Free, open-source colour vision screening for Windows, macOS, Linux, Android and the web. Ishihara-style plates, D-15 hue test, contrast sensitivity, a live Color Lens and a CVD simulator. Offline and private. Built with Tauri v2.">
+<link rel="canonical" href="https://color-vision-lab-codejborg.vercel.app/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Color Vision Lab">
+<meta property="og:url" content="https://color-vision-lab-codejborg.vercel.app/">
+<meta property="og:title" content="Color Vision Lab 3.0: colour vision screening on every device">
+<meta property="og:description" content="Ishihara-style plates, D-15 hue test, contrast sensitivity, live Color Lens and a CVD simulator. Windows, macOS, Linux, Android and web. Offline, private, MIT-licensed.">
+<meta property="og:image" content="https://color-vision-lab-codejborg.vercel.app/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Color Vision Lab 3.0 for Windows, macOS, Linux, Android and the web">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Color Vision Lab 3.0: colour vision screening on every device">
+<meta name="twitter:description" content="Free, offline, open-source colour vision tests and simulator. Built with Tauri v2.">
+<meta name="twitter:image" content="https://color-vision-lab-codejborg.vercel.app/og.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Color Vision Lab","description":"Free, open-source colour vision screening, simulation and colour identification app.","url":"https://color-vision-lab-codejborg.vercel.app/","image":"https://color-vision-lab-codejborg.vercel.app/og.png","screenshot":"https://color-vision-lab-codejborg.vercel.app/img/home.webp","operatingSystem":"Windows, macOS, Linux, Android, iOS, Web","applicationCategory":"HealthApplication","softwareVersion":"3.0.0","datePublished":"2026-10-29","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"downloadUrl":"https://github.com/junaaid96/color-vision-lab/releases/tag/v3.0.0","installUrl":"https://color-vision-lab-codejborg.vercel.app/app/","codeRepository":"https://github.com/junaaid96/color-vision-lab","author":{"@type":"Person","name":"Md. Junaidul Islam","url":"https://github.com/junaaid96"}}</script>
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav"><div class="wrap row"><a href="#" class="brand"><img src="favicon.svg" alt="" width="28" height="28"> Color Vision Lab</a>
-<nav aria-label="Main"><a href="#features">Features</a><a href="#try">Try it</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>
-<button id="theme" class="icon" aria-label="Toggle dark mode">◐</button></div></header>
+<header class="nav">
+  <div class="wrap row">
+    <a href="#top" class="brand"><img src="favicon.svg" alt="" width="28" height="28"> Color Vision Lab</a>
+    <nav aria-label="Main" id="menu">
+      <a href="#features">Features</a><a href="#simulator">Simulator</a><a href="#download">Download</a><a href="#why-tauri">Why Tauri</a><a href="#story">Story</a><a href="#faq">FAQ</a>
+    </nav>
+    <div class="row gap-s">
+      <a class="icon" href="https://github.com/junaaid96/color-vision-lab" aria-label="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 014 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+      <button id="theme" class="icon" type="button" aria-label="Switch colour theme" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 100 20V2z"/><circle cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <button id="menubtn" class="icon only-mobile" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+
 <main id="main">
-<section class="hero wrap"><div>
-<p class="pill">v3.0.0 · Free and open source · Desktop, mobile and web</p>
-<h1>See how you see colour.</h1>
-<p class="lead">Screen your colour vision with plates that are generated fresh each time. You can also see the world through other eyes and name any colour with your camera. Everything works offline, with no tracking.</p>
-<div class="cta"><a class="btn primary" href="https://github.com/junaaid96/color-vision-lab/releases/latest">⬇ Download <small>Windows · macOS · Linux · Android</small></a>
-<a class="btn" href="https://github.com/junaaid96/color-vision-lab">View source on GitHub</a></div>
-<p class="small">Each release lists SHA-256 checksums next to the files. The Kotlin 2.0 Android build is still available under the <a href="https://github.com/junaaid96/color-vision-lab/releases/tag/kotlin-v2.0.0">kotlin-v2.0.0</a> tag.</p>
-</div><div class="plate-wrap" aria-hidden="true"><canvas id="hero" width="360" height="360"></canvas></div></section>
+<section class="hero wrap" id="top">
+  <div class="hero-copy reveal">
+    <p class="pill"><span class="dot" aria-hidden="true"></span> New: v3.0.0 rebuilt with Tauri v2 · now on desktop, mobile and web</p>
+    <h1>Know how you see colour. <span class="grad">On any device.</span></h1>
+    <p class="lead">Screen your colour vision with plates generated fresh every time, check hue ordering and contrast, and see the world through other eyes. Free, open source, offline, and nothing ever leaves your device.</p>
+    <div class="cta">
+      <a class="btn primary big" id="primary-dl" href="#download">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b id="dl-label">Download Color Vision Lab</b><small id="dl-sub">Windows · macOS · Linux · Android</small></span>
+      </a>
+      <a class="btn big" href="app/"><span><b>Open in browser</b><small>No install, works offline</small></span></a>
+    </div>
+    <p class="small muted" id="dl-other">Not your platform? See <a href="#download">all downloads</a>. MIT licensed · v3.0.0</p>
+    <ul class="trust" aria-label="Highlights">
+      <li>🔒 No accounts, ads or tracking</li><li>📴 Works offline</li><li>⚡ ~3 MB desktop installer</li><li>♿ Keyboard and screen-reader friendly</li>
+    </ul>
+  </div>
+  <div class="hero-art reveal" aria-hidden="true">
+    <canvas id="hero" width="420" height="420"></canvas>
+    <img class="hero-shot" src="img/mobile.webp" width="390" height="844" alt="" fetchpriority="high">
+  </div>
+</section>
 
-<section id="features" class="wrap"><h2>Everything in one app</h2><div class="grid">
-<article><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="18" cy="20" r="4" fill="#E69F00"/><circle cx="30" cy="28" r="5" fill="#56B4E9"/><circle cx="26" cy="16" r="3" fill="#56B4E9"/></svg><h3>Ishihara-style plates</h3><p>A quick 7-plate screening or a full 16-plate test. Plates are made on the device from confusion-line colours, so you can't memorise them.</p></article>
-<article><svg viewBox="0 0 48 48"><g stroke="currentColor" stroke-width="3" fill="none"><path d="M8 38V10M8 38h32"/></g><path d="M12 32l8-8 6 4 10-14" stroke="#009E73" stroke-width="3" fill="none"/></svg><h3>Result report</h3><p>Shows type, severity and confidence, with a breakdown for each plate. Share it as text or PDF.</p></article>
-<article><svg viewBox="0 0 48 48"><g><circle cx="10" cy="24" r="5" fill="#D55E00"/><circle cx="20" cy="24" r="5" fill="#E69F00"/><circle cx="30" cy="24" r="5" fill="#009E73"/><circle cx="40" cy="24" r="5" fill="#0072B2"/></g></svg><h3>Hue arrangement (D-15 style)</h3><p>Put 15 caps in order. It is scored with confusion index, selectivity, crossings and the likely axis.</p></article>
-<article><svg viewBox="0 0 48 48"><path d="M24 8l12 16h-7v16h-10V24h-7z" fill="currentColor" opacity=".35"/></svg><h3>Contrast sensitivity</h3><p>An adaptive staircase on a faint directional arrow gives you a log CS score.</p></article>
-<article><svg viewBox="0 0 48 48"><rect x="6" y="12" width="36" height="26" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="24" cy="25" r="7" fill="none" stroke="#56B4E9" stroke-width="3"/><path d="M24 15v4M24 31v4M14 25h4M30 25h4" stroke="#E69F00" stroke-width="2"/></svg><h3>Color Lens</h3><p>The live camera names the colour under the crosshair. It can simulate protan, deutan and tritan vision, or enhance colours in real time, and it can speak names aloud.</p></article>
-<article><svg viewBox="0 0 48 48"><rect x="4" y="10" width="18" height="28" rx="3" fill="#E69F00"/><rect x="26" y="10" width="18" height="28" rx="3" fill="#8c8a5a"/></svg><h3>Photo simulator</h3><p>Compare any photo side by side as seen with each type of colour vision deficiency. It has a severity slider and a daltonize toggle.</p></article>
-<article><svg viewBox="0 0 48 48"><path d="M24 6c6 8 12 13 12 22a12 12 0 01-24 0c0-5 3-8 5-10 1 4 3 5 5 5-2-6 0-12 2-17z" fill="#D55E00"/></svg><h3>Daily practice</h3><p>A 60-second odd-hue game with levels, lives, a best score and a daily streak.</p></article>
-<article><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="3"/><path d="M6 24h36M24 6c-8 10-8 26 0 36M24 6c8 10 8 26 0 36" stroke="currentColor" stroke-width="2" fill="none"/></svg><h3>4 languages and accessible</h3><p>English, বাংলা, Español and हिन्दी. It uses a colour-blind-safe palette, TalkBack labels, a high-contrast theme and reduced motion. History trends are kept on your phone.</p></article>
-</div></section>
+<section class="band" aria-label="At a glance">
+  <dl class="wrap stats">
+    <div><dt>Tests</dt><dd>4</dd></div>
+    <div><dt>Platforms</dt><dd>6</dd></div>
+    <div><dt>Languages</dt><dd>4</dd></div>
+    <div><dt>Data sent</dt><dd>0 bytes</dd></div>
+  </dl>
+</section>
 
-<section id="try" class="wrap"><h2>Try it in your browser</h2><p class="muted">This is a small preview of the app's two key ideas. It is not a test.</p>
-<div class="two"><div class="card"><h3>A fresh plate every time</h3><canvas id="demo" width="320" height="320" aria-label="Colour plate demo with a hidden number"></canvas>
-<div class="row gap"><button class="btn" id="newplate">New plate</button><button class="btn" id="reveal">Reveal number</button></div><p id="ans" class="muted" aria-live="polite"></p></div>
-<div class="card"><h3>See through other eyes</h3><canvas id="sim" width="320" height="200" aria-label="Colour swatches as seen with the chosen vision type"></canvas>
-<fieldset class="row gap wrapf"><legend class="sr">Vision type</legend>
-<label><input type="radio" name="cvd" value="none" checked> Typical</label><label><input type="radio" name="cvd" value="protan"> Protan</label><label><input type="radio" name="cvd" value="deutan"> Deutan</label><label><input type="radio" name="cvd" value="tritan"> Tritan</label></fieldset>
-<label>Severity <input type="range" id="sev" min="0" max="100" value="100"></label></div></div></section>
+<section id="features" class="wrap">
+  <header class="sec-head reveal"><p class="eyebrow">Features</p><h2>Screening, simulation and everyday help in one app</h2><p class="muted">Most apps only test or only assist. Color Vision Lab does both, fully offline.</p></header>
+  <h3 class="group">Tests</h3>
+  <div class="grid">
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🔵</span><h4>Quick &amp; full screening</h4><p>7-plate quick check or full 16-plate test with control, red-green, tritan and protan/deutan plates. Generated on the fly from Machado confusion lines, so they can’t be memorised.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🌈</span><h4>Hue arrangement (D-15)</h4><p>Order 15 caps by hue. Scored with Vingrys &amp; King-Smith: confusion index, selectivity, crossings and likely axis. Tap, drag or use the keyboard.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">◐</span><h4>Contrast sensitivity</h4><p>A four-direction arrow with an adaptive 1-up/2-down staircase that reports log CS.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">📄</span><h4>Results &amp; report export</h4><p>Type, severity, confidence and a per-plate breakdown. Share it, or export a printable HTML report and save it as PDF.</p></article>
+  </div>
+  <h3 class="group">Tools</h3>
+  <div class="grid">
+    <article class="card f reveal"><span class="ico" aria-hidden="true">📷</span><h4>Live Color Lens</h4><p>Point your camera (or a photo) at anything: it names the colour under the crosshair, simulates or enhances in real time, freezes frames and can speak names aloud.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🖼️</span><h4>Photo simulator + correction</h4><p>See a photo as protan, deutan and tritan side by side, adjust severity, toggle daltonize correction and save any panel as PNG.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">📈</span><h4>History &amp; streaks</h4><p>Trend charts per test, CSV export, JSON backup and restore. Everything stays on your device.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🔥</span><h4>Daily practice</h4><p>A 60-second odd-hue game with levels, lives, a best score and a daily streak. No notifications, no dark patterns.</p></article>
+  </div>
+  <h3 class="group">Built for everyone</h3>
+  <div class="grid">
+    <article class="card f reveal"><span class="ico" aria-hidden="true">📴</span><h4>Offline &amp; privacy-first</h4><p>No accounts, analytics or ads. Results are stored locally. The only network call is the optional, signature-verified desktop update check.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🌓</span><h4>Themes &amp; calibration</h4><p>System, light and dark themes, a high-contrast mode and a grey-step calibration check before plate tests.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🌐</span><h4>Multilingual</h4><p>English, বাংলা, Español and हिन्दी, with an English fallback.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">⌨️</span><h4>Keyboard &amp; screen reader</h4><p>Okabe-Ito palette, never colour alone, live regions and labels, reduced motion and full keyboard control (<kbd>1</kbd>–<kbd>7</kbd> sections, <kbd>?</kbd> shortcuts).</p></article>
+  </div>
+</section>
 
-<section class="wrap"><h2>How it works</h2><ol class="steps"><li><b>Download and install</b> the app for your computer or phone, or open the web version in a browser.</li><li><b>Take a test.</b> Start with the quick 7-plate screening, then try the full, hue and contrast tests.</li><li><b>Read your report.</b> It shows type, severity and confidence, and you can track trends in History.</li><li><b>Explore.</b> Point the Color Lens at the world or run photos through the simulator.</li></ol></section>
+<section id="simulator" class="wrap">
+  <header class="sec-head reveal"><p class="eyebrow">Try it now</p><h2>See through other eyes</h2><p class="muted">A live preview of the app’s simulator, using the same Machado 2009 matrices in linear RGB. Pick a scene or load your own photo (it never leaves your browser).</p></header>
+  <div class="sim card reveal">
+    <div class="sim-view">
+      <canvas id="simc" width="720" height="440" role="img" aria-label="Sample scene shown with typical colour vision"></canvas>
+      <p class="sim-tag" id="simtag" aria-live="polite">Typical vision</p>
+    </div>
+    <div class="sim-ctl">
+      <fieldset><legend>Vision type</legend>
+        <div class="seg">
+          <label><input type="radio" name="cvd" value="none" checked><span>Typical</span></label>
+          <label><input type="radio" name="cvd" value="protan"><span>Protan</span></label>
+          <label><input type="radio" name="cvd" value="deutan"><span>Deutan</span></label>
+          <label><input type="radio" name="cvd" value="tritan"><span>Tritan</span></label>
+        </div>
+      </fieldset>
+      <label class="range">Severity <output id="sevo">100%</output><input type="range" id="sev" min="0" max="100" value="100"></label>
+      <label class="check"><input type="checkbox" id="split"> Split view (left: typical)</label>
+      <fieldset><legend>Scene</legend>
+        <div class="seg">
+          <label><input type="radio" name="scene" value="fruit" checked><span>Fruit</span></label>
+          <label><input type="radio" name="scene" value="chart"><span>Chart</span></label>
+          <label><input type="radio" name="scene" value="palette"><span>Palette</span></label>
+        </div>
+      </fieldset>
+      <label class="btn file">Use your own photo<input type="file" id="photo" accept="image/*" class="sr"></label>
+      <p class="small muted" id="simdesc">Protan: reduced red sensitivity (~1% of men). Deutan: reduced green (~5% of men). Tritan: blue-yellow, rare.</p>
+    </div>
+  </div>
+  <div class="two">
+    <div class="card reveal"><h3>A fresh plate every time</h3><p class="muted small">The app builds Ishihara-style plates on the device. This toy version shows the idea; it is not a test.</p>
+      <canvas id="demo" width="320" height="320" role="img" aria-label="Colour plate with a hidden number"></canvas>
+      <div class="row gap-s"><button class="btn" type="button" id="newplate">New plate</button><button class="btn" type="button" id="reveal">Reveal number</button></div>
+      <p id="ans" class="muted" aria-live="polite"></p></div>
+    <div class="card reveal"><h3>How it works</h3>
+      <ol class="stepper">
+        <li><b>Install or open</b><span>Download for your device or use the web app. No sign-up.</span></li>
+        <li><b>Calibrate</b><span>A quick grey-step check and tips for brightness and lighting.</span></li>
+        <li><b>Take a test</b><span>Start with the 7-plate quick screen, then try full, hue and contrast tests.</span></li>
+        <li><b>Read your report</b><span>Type, severity and confidence, exportable and tracked in History.</span></li>
+        <li><b>Explore</b><span>Use the Color Lens and photo simulator, and practise daily.</span></li>
+      </ol></div>
+  </div>
+</section>
 
-<section id="install" class="wrap"><h2>Installing</h2><div class="two"><ol class="steps">
-<li><b>Windows:</b> run the <code>.msi</code> or <code>-setup.exe</code>.</li><li><b>macOS:</b> open the <code>.dmg</code> and drag the app to Applications. Unsigned builds need right-click → Open the first time.</li><li><b>Linux:</b> use the <code>.AppImage</code>, <code>.deb</code> or <code>.rpm</code>.</li><li><b>Android:</b> install the <code>.apk</code> and allow <i>install unknown apps</i> if asked.</li></ol>
-<div class="card note"><h3>About warnings</h3><p>Builds are not yet code-signed with a store certificate, so Windows SmartScreen, macOS Gatekeeper or Google Play Protect may warn you. The full source is public, and you can build it yourself with <code>npm run tauri build</code>.</p></div></div></section>
+<section id="screens" class="wrap">
+  <header class="sec-head reveal"><p class="eyebrow">Screenshots</p><h2>A calm, focused interface</h2></header>
+  <div class="gallery">
+    <figure class="reveal wide"><img src="img/home.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Home screen of the desktop app with test cards and a daily streak"><figcaption>Home on desktop</figcaption></figure>
+    <figure class="reveal tall"><img src="img/mobile.webp" width="390" height="844" loading="lazy" decoding="async" alt="Mobile layout in the light theme"><figcaption>Mobile, light theme</figcaption></figure>
+    <figure class="reveal"><img src="img/quick.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Quick screening showing a dotted plate and a number keypad"><figcaption>Quick screening</figcaption></figure>
+    <figure class="reveal"><img src="img/arrangement.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Hue arrangement test with coloured caps to order"><figcaption>Hue arrangement</figcaption></figure>
+  </div>
+</section>
 
-<section class="wrap two"><div class="card"><h2>Private by design</h2><p>The app makes no network calls except the optional desktop update check against GitHub Releases. It has no accounts, analytics or ads. Your results never leave your device. The camera is used only for the Color Lens and processes frames on the device.</p></div>
-<div class="card warn"><h2>Screening, not a diagnosis</h2><p>Color Vision Lab is a screening and learning tool. It is not a medical device. Screens vary in colour and brightness. If you have any concerns about your vision, see an eye-care professional.</p></div></section>
+<section id="download" class="wrap">
+  <header class="sec-head reveal"><p class="eyebrow">Download</p><h2>Get Color Vision Lab 3.0.0</h2><p class="muted">Free for every platform. Pick the file for your device or just <a href="app/">use it in your browser</a>.</p></header>
+  <div class="grid plat">
+    <article class="card p reveal" data-os="windows"><h3>Windows</h3><p class="muted small">Windows 10 and 11, x64</p><a class="btn primary" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_x64-setup.exe">Installer (.exe) · 2.4 MB</a><a class="btn" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_x64_en-US.msi">MSI · 3.2 MB</a></article>
+    <article class="card p reveal" data-os="mac"><h3>macOS</h3><p class="muted small">macOS 11+, Apple silicon and Intel</p><a class="btn primary" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_universal.dmg">Universal .dmg · 6.0 MB</a><a class="btn" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color-Vision-Lab_3.0.0_aarch64.dmg">Apple silicon .dmg · 3.0 MB</a></article>
+    <article class="card p reveal" data-os="linux"><h3>Linux</h3><p class="muted small">x86_64 desktops</p><a class="btn primary" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_amd64.AppImage">AppImage · 82 MB</a><a class="btn" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_amd64.deb">.deb · 3.8 MB</a><a class="btn" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab-3.0.0-1.x86_64.rpm">.rpm · 3.8 MB</a></article>
+    <article class="card p reveal" data-os="android"><h3>Android</h3><p class="muted small">Android 7.0+, sideload</p><a class="btn primary" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color-Vision-Lab_3.0.0_universal-debug.apk">Installable APK · 594 MB</a><p class="small muted">Debug-signed so it installs today; it is large because it is an unoptimised debug build. The <code>release-unsigned</code> APK is not installable until signed.</p></article>
+    <article class="card p reveal" data-os="ios"><h3>iOS &amp; iPadOS</h3><p class="muted small">No App Store build yet</p><a class="btn primary" href="app/">Use the web app</a><a class="btn" href="https://github.com/junaaid96/color-vision-lab#ios">Build with Xcode</a><p class="small muted">Add the web app to your Home Screen for offline use.</p></article>
+    <article class="card p reveal" data-os="web"><h3>Web</h3><p class="muted small">Any modern browser</p><a class="btn primary" href="app/">Open web app</a><a class="btn" href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/ColorVisionLab-v3.0.0-web.zip">Self-host (.zip) · 117 KB</a></article>
+  </div>
 
-<section id="faq" class="wrap"><h2>FAQ</h2>
-<details><summary>Is it free?</summary><p>Yes. It is free and open source under the MIT license.</p></details>
-<details><summary>Which devices are supported?</summary><p>Windows 10+, macOS 11+, modern Linux desktops, Android 7.0+ and any modern browser. iOS builds can be made from source with Xcode.</p></details>
-<details><summary>Is it in an app store?</summary><p>Not yet. Downloads come from the GitHub releases page, and there is a web version that works offline.</p></details>
-<details><summary>How accurate is it?</summary><p>The plates use the Machado 2009 confusion-line model, with lightness noise so brightness gives no clue. Results still depend on your screen, so treat them as an indication.</p></details>
-<details><summary>Why does my device warn me?</summary><p>Operating systems warn about apps installed from outside their stores or without a paid signing certificate. See the install section above.</p></details>
-<details><summary>How do I update?</summary><p>Desktop apps check GitHub Releases from Settings and update themselves. On Android, install the newer APK over the old one.</p></details>
-</section></main>
-<footer class="wrap"><p>© 2026 Md. Junaidul Islam · <a href="https://github.com/junaaid96/color-vision-lab/blob/HEAD/LICENSE">MIT License</a> · <a href="https://github.com/junaaid96/color-vision-lab">Source</a> · <a href="https://github.com/junaaid96/color-vision-lab/blob/HEAD/PRIVACY.md">Privacy</a> · <a href="https://github.com/junaaid96/color-vision-lab/releases">Releases</a></p></footer>
-<script src="app.js" defer></script></body></html>
+  <details class="card all reveal" id="all-downloads">
+    <summary><h3>All downloads</h3></summary>
+    <div class="table-wrap"><table>
+      <caption class="sr">All files in release v3.0.0</caption>
+      <thead><tr><th scope="col">Platform</th><th scope="col">File</th><th scope="col">Size</th><th scope="col">Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Windows</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_x64-setup.exe">Color.Vision.Lab_3.0.0_x64-setup.exe</a></td><td>2.4 MB</td><td>NSIS installer, per-user</td></tr>
+        <tr><td>Windows</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_x64_en-US.msi">Color.Vision.Lab_3.0.0_x64_en-US.msi</a></td><td>3.2 MB</td><td>MSI for managed installs</td></tr>
+        <tr><td>macOS</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_universal.dmg">Color.Vision.Lab_3.0.0_universal.dmg</a></td><td>6.0 MB</td><td>Universal (Apple silicon + Intel)</td></tr>
+        <tr><td>macOS</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color-Vision-Lab_3.0.0_aarch64.dmg">Color-Vision-Lab_3.0.0_aarch64.dmg</a></td><td>3.0 MB</td><td>Apple silicon only</td></tr>
+        <tr><td>Linux</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_amd64.AppImage">Color.Vision.Lab_3.0.0_amd64.AppImage</a></td><td>82 MB</td><td>Portable, bundles its libraries</td></tr>
+        <tr><td>Linux</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab_3.0.0_amd64.deb">Color.Vision.Lab_3.0.0_amd64.deb</a></td><td>3.8 MB</td><td>Debian, Ubuntu</td></tr>
+        <tr><td>Linux</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color.Vision.Lab-3.0.0-1.x86_64.rpm">Color.Vision.Lab-3.0.0-1.x86_64.rpm</a></td><td>3.8 MB</td><td>Fedora, openSUSE</td></tr>
+        <tr><td>Android</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/Color-Vision-Lab_3.0.0_universal-debug.apk">Color-Vision-Lab_3.0.0_universal-debug.apk</a></td><td>594 MB</td><td><b>Installable</b> (debug-signed)</td></tr>
+        <tr><td>Android</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/ColorVisionLab-v3.0.0-app-universal-release-unsigned.apk">ColorVisionLab-v3.0.0-app-universal-release-unsigned.apk</a></td><td>23 MB</td><td>Unsigned, <b>not installable</b> as is</td></tr>
+        <tr><td>Android</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/ColorVisionLab-v3.0.0-app-universal-release.aab">ColorVisionLab-v3.0.0-app-universal-release.aab</a></td><td>10.7 MB</td><td>App bundle for stores</td></tr>
+        <tr><td>Web</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/ColorVisionLab-v3.0.0-web.zip">ColorVisionLab-v3.0.0-web.zip</a></td><td>117 KB</td><td>Static files for any host</td></tr>
+        <tr><td>All</td><td><a href="https://github.com/junaaid96/color-vision-lab/releases/download/v3.0.0/SHA256SUMS.txt">SHA256SUMS.txt</a></td><td>&lt;1 KB</td><td>Checksums</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Verify a download with <code>shasum -a 256 &lt;file&gt;</code> (macOS/Linux) or <code>Get-FileHash &lt;file&gt;</code> (Windows) and compare with <code>SHA256SUMS.txt</code> or the checksum shown on the <a href="https://github.com/junaaid96/color-vision-lab/releases/tag/v3.0.0">release page</a>. The <code>.sig</code> files are updater signatures used by the desktop auto-updater.</p>
+  </details>
+  <div class="card note reveal"><h3>About security warnings</h3><p>Builds are not yet signed with a paid store certificate, so Windows SmartScreen, macOS Gatekeeper (right-click → Open the first time) or Google Play Protect may warn you. On Android allow <i>install unknown apps</i>. The source is public and you can build it yourself.</p></div>
+</section>
+
+<section id="why-tauri" class="wrap">
+  <header class="sec-head reveal"><p class="eyebrow">Under the hood</p><h2>Why Tauri?</h2><p class="muted">Version 3 moved from a native Kotlin Android app to <a href="https://v2.tauri.app">Tauri v2</a>: a Rust core with a React + TypeScript UI rendered by the system webview. Here is the honest trade-off.</p></header>
+  <div class="grid">
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🪶</span><h4>Tiny installers</h4><p>The Windows installer is about 2.4 MB and the macOS universal app about 6 MB, because Tauri uses the OS webview instead of shipping Chromium. Comparable Electron apps typically start around 100 MB+.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🧩</span><h4>One codebase, every platform</h4><p>The same TypeScript colour science, tests and UI ship on Windows, macOS, Linux, Android and iOS, and the exact same code is reused as the web build.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🦀</span><h4>Rust where it matters</h4><p>Photo simulation and daltonize run in a small Rust pixel pipeline; the web build falls back to TypeScript with identical maths.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🛡️</span><h4>Security by default</h4><p>Capabilities and permissions allow only the APIs each window needs, a strict Content Security Policy blocks remote code, and there is no Node runtime in the app.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🔌</span><h4>Native plugins</h4><p>Official plugins for the file system, dialogs, notifications, deep links, single instance and window state give native behaviour without custom glue.</p></article>
+    <article class="card f reveal"><span class="ico" aria-hidden="true">🔄</span><h4>Signed auto-updates</h4><p>Desktop apps check GitHub Releases and only install updates whose signature matches the public key built into the app.</p></article>
+  </div>
+  <p class="small muted reveal"><b>Trade-offs:</b> the UI depends on each OS’s webview (WebView2, WKWebView, WebKitGTK, Android System WebView), so rendering is tested per platform; Linux AppImages are larger because they bundle libraries; and mobile support in Tauri is newer than on desktop.</p>
+</section>
+
+<section id="story" class="wrap">
+  <header class="sec-head reveal"><p class="eyebrow">The story</p><h2>From Kotlin Android to everywhere</h2></header>
+  <ol class="timeline">
+    <li class="reveal"><time datetime="2022">2022</time><h3>v1: ColorBlindTestApp</h3><p>A first Android app with a fixed set of Ishihara-style plates. <a href="https://github.com/junaaid96/color-vision-lab/releases/tag/ColorBlindTestApp_V1">See v1</a>.</p></li>
+    <li class="reveal"><time datetime="2026">2026</time><h3>v2.0.0: Kotlin + Jetpack Compose</h3><p>A full redesign in Material 3 with generated plates, the D-15 hue test, contrast sensitivity, Color Lens, photo simulator, history and daily practice. Preserved at <a href="https://github.com/junaaid96/color-vision-lab/tree/kotlin-v2.0.0"><code>kotlin-v2.0.0</code></a>.</p></li>
+    <li class="reveal now"><time datetime="2026-10-29">2026</time><h3>v3.0.0: Tauri v2 rewrite</h3><p>Rebuilt with Tauri, React and Rust to reach Windows, macOS, Linux, iOS and the web from one codebase, while keeping every feature. <a href="https://github.com/junaaid96/color-vision-lab/releases/tag/v3.0.0">Release notes</a>.</p></li>
+  </ol>
+  <div class="two">
+    <div class="card reveal"><h3>What was kept</h3><ul class="ticks"><li>All tests and scoring: plates, D-15, contrast</li><li>Machado 2009 simulation and daltonize maths</li><li>Color Lens, photo simulator, history, daily practice</li><li>Okabe-Ito palette, 4 languages, offline and no tracking</li></ul></div>
+    <div class="card reveal"><h3>What’s new</h3><ul class="ticks plus"><li>Windows, macOS, Linux, iOS and web versions</li><li>Keyboard shortcuts and deeper screen-reader support</li><li>HTML report export, CSV export and JSON import</li><li>Photo mode in Color Lens, deep links, Rust pixel pipeline</li><li>Signed desktop auto-updates</li></ul></div>
+  </div>
+  <div class="table-wrap card reveal">
+    <table>
+      <caption>Kotlin v2 compared with Tauri v3</caption>
+      <thead><tr><th scope="col"></th><th scope="col">v2 · Kotlin / Compose</th><th scope="col">v3 · Tauri v2</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Platforms</th><td>Android</td><td>Windows, macOS, Linux, Android, iOS, web</td></tr>
+        <tr><th scope="row">UI</th><td>Jetpack Compose, Material 3</td><td>React + TypeScript in the system webview</td></tr>
+        <tr><th scope="row">Native core</th><td>Kotlin on the JVM / ART</td><td>Rust</td></tr>
+        <tr><th scope="row">Colour science</th><td>Kotlin</td><td>TypeScript, unit-tested with Vitest</td></tr>
+        <tr><th scope="row">Camera filters</th><td>Android graphics</td><td>SVG <code>feColorMatrix</code> on the GPU</td></tr>
+        <tr><th scope="row">Updates</th><td>Reinstall APK</td><td>Signed auto-update on desktop</td></tr>
+        <tr><th scope="row">Desktop installer size</th><td>n/a</td><td>~2.4–6 MB</td></tr>
+        <tr><th scope="row">Native feel on Android</th><td>Best (fully native)</td><td>Very good (webview)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="badges reveal" aria-label="Tech stack">
+    <li>Tauri v2</li><li>Rust</li><li>React 19</li><li>Tailwind 4</li><li>TypeScript</li><li>Vite</li><li>Vitest</li><li>Service worker</li><li>MIT</li>
+  </ul>
+</section>
+
+<section class="wrap two">
+  <div class="card reveal"><h2>Private by design</h2><p>No accounts, analytics or ads. Results never leave your device. The camera is used only for the Color Lens and frames are processed locally. Read the <a href="https://github.com/junaaid96/color-vision-lab/blob/master/PRIVACY.md">privacy policy</a>.</p></div>
+  <div class="card warn reveal"><h2>Screening, not a diagnosis</h2><p>Color Vision Lab is an educational screening tool, not a medical device. Screens vary in colour and brightness. If you are concerned about your vision, see an eye-care professional.</p></div>
+</section>
+
+<section id="faq" class="wrap narrow">
+  <header class="sec-head reveal"><p class="eyebrow">FAQ</p><h2>Questions</h2></header>
+  <details><summary>Is this a medical diagnosis?</summary><p>No. It screens and educates. Results depend on your display, lighting and settings, so treat them as an indication and see an eye-care professional for a diagnosis.</p></details>
+  <details><summary>How accurate are the plates?</summary><p>Plate colours are found on Machado 2009 confusion lines with lightness noise, so brightness gives no clue, and a calibration check runs first. Uncalibrated screens still limit accuracy.</p></details>
+  <details><summary>Is my data private?</summary><p>Yes. Everything is stored on your device. There are no accounts, analytics, ads or servers. The desktop update check only downloads a public file from GitHub.</p></details>
+  <details><summary>Which platforms are supported?</summary><p>Windows 10+, macOS 11+, modern x86_64 Linux, Android 7.0+ and any modern browser. iOS builds can be made from source with Xcode; until then, use the web app.</p></details>
+  <details><summary>Why is the Android APK so large?</summary><p>The installable APK is a debug-signed build, which is not size-optimised. The optimised release APK (23 MB) is unsigned, so Android will not install it until it is signed.</p></details>
+  <details><summary>Does it work offline?</summary><p>Yes. Native apps bundle everything, and the web app caches itself with a service worker after the first visit.</p></details>
+  <details><summary>Is it open source?</summary><p>Yes, under the MIT license. The code, issues and releases are on <a href="https://github.com/junaaid96/color-vision-lab">GitHub</a>. Contributions are welcome.</p></details>
+  <details><summary>How do I update?</summary><p>Desktop apps update themselves from Settings. On Android, install the newer APK over the old one. The web app updates on reload.</p></details>
+</section>
+
+<section class="wrap final reveal">
+  <h2>Ready to see how you see?</h2>
+  <div class="cta center"><a class="btn primary big" href="#download">Download free</a><a class="btn big" href="app/">Open in browser</a></div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap row wrapf">
+    <p>© 2026 Md. Junaidul Islam · <a href="https://github.com/junaaid96/color-vision-lab/blob/master/LICENSE">MIT License</a></p>
+    <nav aria-label="Footer"><a href="https://github.com/junaaid96/color-vision-lab">GitHub</a><a href="https://github.com/junaaid96/color-vision-lab/releases">Releases</a><a href="https://github.com/junaaid96/color-vision-lab/releases/tag/v3.0.0">Changelog</a><a href="https://github.com/junaaid96/color-vision-lab/tree/kotlin-v2.0.0">Kotlin v2</a><a href="https://github.com/junaaid96/color-vision-lab/blob/master/PRIVACY.md">Privacy</a></nav>
+  </div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>

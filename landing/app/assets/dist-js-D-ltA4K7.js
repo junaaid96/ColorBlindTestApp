@@ -1,0 +1,1 @@
+import"./core-CWuOXYMg.js";function e(){return window.__TAURI_OS_PLUGIN_INTERNALS__.platform}function t(){return window.__TAURI_OS_PLUGIN_INTERNALS__.arch}export{t as arch,e as platform};
